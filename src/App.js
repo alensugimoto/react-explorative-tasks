@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Box from "@material-ui/core/Box";
+
+function MyCard(props) {
+  return (
+    <Box border={props.highlight ? 1 : 0} borderColor="red">
+      {props.value}
+    </Box>
+  );
+}
+
+function CardsContainer(props) {
+  return (
+    <ol>
+      {props.cardsText.map((value, index) => (
+        <MyCard value={value} highlight={index === props.selected} />
+      ))}
+    </ol>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CardsContainer
+      selected={0}
+      cardsText={["My first card", "My second card"]}
+    />
   );
 }
 
