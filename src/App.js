@@ -1,30 +1,13 @@
-import React from "react";
-import Box from "@material-ui/core/Box";
-
-function MyCard(props) {
-  return (
-    <Box border={props.highlight ? 1 : 0} borderColor="red">
-      {props.value}
-    </Box>
-  );
-}
-
-function CardsContainer(props) {
-  return (
-    <ol>
-      {props.cardsText.map((value, index) => (
-        <MyCard value={value} highlight={index === props.selected} />
-      ))}
-    </ol>
-  );
-}
+import CardsContainer from "./CardsContainer";
 
 function App() {
+  const selected = 0;
+  const cardsText = ["My first card", "My second card"];
+
   return (
-    <CardsContainer
-      selected={0}
-      cardsText={["My first card", "My second card"]}
-    />
+    <div className="App">
+      <CardsContainer selected={selected} cardsText={cardsText} />
+    </div>
   );
 }
 
