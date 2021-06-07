@@ -8,13 +8,23 @@ function CardsContainer(props) {
   const [cardsText, setCardsText] = useState(props.cardsText);
 
   const handleClick = () => {
-    const newCardsText = [...cardsText, ""];
-    setCardsText(newCardsText);
+    setCardsText((prevCardsText) => [...prevCardsText, ""]);
   };
 
-  const handleChange = (event) => {
-    const newSelected = Number(event.target.value);
-    setSelected(newSelected);
+  const handleSelectedChange = (event) => {
+    setSelected(Number(event.target.value));
+  };
+
+  const handleCardsTextChange = (event, index) => {
+    setCardsText((prevCardsText) =>
+      prevCardsText.map((value, i) => {
+        if (i === index) {
+          return event.target.value;
+        } else {
+          return value;
+        }
+      })
+    );
   };
 
   return (
@@ -22,13 +32,19 @@ function CardsContainer(props) {
       <IconButton onClick={handleClick}>
         <Add />
       </IconButton>
-      <form>
-        <Input type="number" defaultValue={selected} onChange={handleChange} />
-      </form>
+      <Input
+        type="number"
+        defaultValue={selected}
+        onChange={handleSelectedChange}
+      />
       <ol>
         {cardsText.map((value, index) => (
           <li key={index}>
-            <MyCard value={value} highlight={index === selected} />
+            <MyCard
+              value={value}
+              highlight={index === selected}
+              onChange={(event) => handleCardsTextChange(event, index)}
+            />
           </li>
         ))}
       </ol>
